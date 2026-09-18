@@ -1,18 +1,23 @@
 <?php
-class DatabaseConnection 
+
+class DatabaseConnection
 {
     private static ?DatabaseConnection $instance = null;
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
-    private function __clone() {}
+    private function __clone()
+    {
+    }
 
-    public function __wakeup() 
+    public function __wakeup()
     {
         throw new Exception("Cannot unserialize a singleton.");
     }
 
-    public static function getInstance(): DatabaseConnection 
+    public static function getInstance(): DatabaseConnection
     {
         if (self::$instance === null) {
             self::$instance = new self();

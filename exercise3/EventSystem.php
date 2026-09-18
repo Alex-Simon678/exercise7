@@ -1,38 +1,39 @@
 <?php
-interface SubscriberInterface 
+
+interface SubscriberInterface
 {
     public function update(string $event, array $data): void;
 }
 
-class EmailNotifier implements SubscriberInterface 
+class EmailNotifier implements SubscriberInterface
 {
-    public function update(string $event, array $data): void 
+    public function update(string $event, array $data): void
     {
         echo "EmailNotifier: An email would be sent for event '{$event}'.\n";
     }
 }
 
-class AuditLogger implements SubscriberInterface 
+class AuditLogger implements SubscriberInterface
 {
     public array $logs = [];
 
-    public function update(string $event, array $data): void 
+    public function update(string $event, array $data): void
     {
         $this->logs[] = ['event' => $event, 'data' => $data, 'time' => time()];
         echo "AuditLogger: Logged event '{$event}'.\n";
     }
 }
 
-class EventPublisher 
+class EventPublisher
 {
     private array $subscribers = [];
 
-    public function subscribe(string $eventType, SubscriberInterface $subscriber): void 
+    public function subscribe(string $eventType, SubscriberInterface $subscriber): void
     {
         $this->subscribers[$eventType][] = $subscriber;
     }
 
-    public function unsubscribe(string $eventType, SubscriberInterface $subscriber): void 
+    public function unsubscribe(string $eventType, SubscriberInterface $subscriber): void
     {
         if (!isset($this->subscribers[$eventType])) {
             return;
@@ -45,7 +46,7 @@ class EventPublisher
         }
     }
 
-    public function notify(string $eventType, array $data = []): void 
+    public function notify(string $eventType, array $data = []): void
     {
         if (empty($this->subscribers[$eventType])) {
             return;

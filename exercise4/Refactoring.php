@@ -10,7 +10,8 @@ function buildStatementLines(
     array $orderItems,
     string $statusNote,
     bool $includeInStatement = true,
-    bool $applyBulkDiscount = false ): array {
+    bool $applyBulkDiscount = false
+): array {
 
     if (!$includeInStatement) {
         return [];

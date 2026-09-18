@@ -1,64 +1,65 @@
 <?php
-interface DiscountStrategyInterface 
+
+interface DiscountStrategyInterface
 {
     public function calculateDiscount(float $price): float;
 }
 
-class NoDiscount implements DiscountStrategyInterface 
+class NoDiscount implements DiscountStrategyInterface
 {
-    public function calculateDiscount(float $price): float 
+    public function calculateDiscount(float $price): float
     {
         return $price;
     }
 }
 
-class PercentageDiscount implements DiscountStrategyInterface 
+class PercentageDiscount implements DiscountStrategyInterface
 {
     private float $percentage;
 
-    public function __construct(float $percentage) 
+    public function __construct(float $percentage)
     {
         $this->percentage = $percentage;
     }
 
-    public function calculateDiscount(float $price): float 
+    public function calculateDiscount(float $price): float
     {
         return $price - ($price * ($this->percentage / 100));
     }
 }
 
-class FixedAmountDiscount implements DiscountStrategyInterface 
+class FixedAmountDiscount implements DiscountStrategyInterface
 {
     private float $amount;
 
-    public function __construct(float $amount) 
+    public function __construct(float $amount)
     {
         $this->amount = $amount;
     }
 
-    public function calculateDiscount(float $price): float 
+    public function calculateDiscount(float $price): float
     {
         return max(0, $price - $this->amount);
     }
 }
 
-class Order 
+class Order
 {
     private DiscountStrategyInterface $strategy;
     private float $price;
 
-    public function __construct(DiscountStrategyInterface $strategy, float $price) 
+    public function __construct(DiscountStrategyInterface $strategy, float $price)
     {
         $this->strategy = $strategy;
         $this->price = $price;
     }
 
-    public function setDiscountStrategy(DiscountStrategyInterface $strategy): void 
+    public function setDiscountStrategy(DiscountStrategyInterface $strategy): void
     {
         $this->strategy = $strategy;
     }
 
-    public function getTotal(): float 
+    public function getTotal(): float
     {
         return $this->strategy->calculateDiscount($this->price);
     }

@@ -1,6 +1,6 @@
 <?php
 
-interface FormatterInterface 
+interface FormatterInterface
 {
     public function format(array $data): string;
 }
