@@ -6,12 +6,15 @@ const DISCOUNT_THRESHOLD = 100.0;
 const DISCOUNT_MULTIPLIER = 0.9;
 const PENDING_NOTE_SUFFIX = ' (pending)';
 
-function buildStatementLines(
-    array $orderItems,
-    string $statusNote,
-    bool $includeInStatement = true,
-    bool $applyBulkDiscount = false
-): array {
+/**
+ * @param array<int, array<string, mixed>> $orderItems
+ * @param string $statusNote
+ * @param bool $includeInStatement
+ * @param bool $applyBulkDiscount
+ * @return array<int, array<string, mixed>>
+ */
+function buildStatementLines(array $orderItems, string $statusNote, bool $includeInStatement = true, bool $applyBulkDiscount = false): array
+{
 
     if (!$includeInStatement) {
         return [];
@@ -30,6 +33,12 @@ function buildStatementLines(
     return $lines;
 }
 
+/**
+ * @param array<string, mixed> $orderItem
+ * @param string $statusNote
+ * @param bool $applyBulkDiscount
+ * @return array<string, mixed>
+ */
 function buildActiveLine(array $orderItem, string $statusNote, bool $applyBulkDiscount): array
 {
     return [
@@ -39,6 +48,11 @@ function buildActiveLine(array $orderItem, string $statusNote, bool $applyBulkDi
     ];
 }
 
+/**
+ * @param array<string, mixed> $orderItem
+ * @param string $statusNote
+ * @return array<string, mixed>
+ */
 function buildPendingLine(array $orderItem, string $statusNote): array
 {
     return [

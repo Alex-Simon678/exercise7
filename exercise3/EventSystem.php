@@ -2,11 +2,17 @@
 
 interface SubscriberInterface
 {
+    /**
+     * @param array<string, mixed> $data
+     */
     public function update(string $event, array $data): void;
 }
 
 class EmailNotifier implements SubscriberInterface
 {
+    /**
+     * @param array<string, mixed> $data
+     */
     public function update(string $event, array $data): void
     {
         echo "EmailNotifier: An email would be sent for event '{$event}'.\n";
@@ -15,8 +21,12 @@ class EmailNotifier implements SubscriberInterface
 
 class AuditLogger implements SubscriberInterface
 {
+    /** @var array<int, array<string, mixed>> */
     public array $logs = [];
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function update(string $event, array $data): void
     {
         $this->logs[] = ['event' => $event, 'data' => $data, 'time' => time()];
@@ -26,6 +36,7 @@ class AuditLogger implements SubscriberInterface
 
 class EventPublisher
 {
+    /** @var array<string, array<int, SubscriberInterface>> */
     private array $subscribers = [];
 
     public function subscribe(string $eventType, SubscriberInterface $subscriber): void
@@ -46,6 +57,9 @@ class EventPublisher
         }
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function notify(string $eventType, array $data = []): void
     {
         if (empty($this->subscribers[$eventType])) {

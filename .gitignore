@@ -1,5 +1,4 @@
 vendor
 composer.lock
 composer.json
-phpstan.neon
 .php-cs-fixer.cache

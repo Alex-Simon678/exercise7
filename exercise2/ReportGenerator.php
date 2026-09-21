@@ -8,7 +8,9 @@ class ReportGenerator
     {
         $this->saver = $saver;
     }
-
+    /**
+    * @param array<mixed> $data
+    */
     public function generate(FormatterInterface $formatter, array $data, string $filename): void
     {
         $content = $formatter->format($data);

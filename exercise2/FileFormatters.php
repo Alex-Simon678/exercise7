@@ -2,6 +2,9 @@
 
 class PdfFormatter implements FormatterInterface
 {
+    /**
+    * @param array<mixed> $data
+    */
     public function format(array $data): string
     {
         return "<pdf>" . implode(",", $data) . "</pdf>";
@@ -10,6 +13,9 @@ class PdfFormatter implements FormatterInterface
 
 class CsvFormatter implements FormatterInterface
 {
+    /**
+    * @param array<mixed> $data
+    */
     public function format(array $data): string
     {
         return implode("\n", $data);
@@ -18,6 +24,9 @@ class CsvFormatter implements FormatterInterface
 
 class HtmlFormatter implements FormatterInterface
 {
+    /**
+    * @param array<mixed> $data
+    */
     public function format(array $data): string
     {
         $content = "<html><body><ul>";
@@ -31,6 +40,9 @@ class HtmlFormatter implements FormatterInterface
 
 class JsonFormatter implements FormatterInterface
 {
+    /**
+    * @param array<mixed> $data
+    */
     public function format(array $data): string
     {
         return json_encode($data);
